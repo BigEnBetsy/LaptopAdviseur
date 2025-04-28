@@ -96,12 +96,13 @@
     z-index: 2;
     max-width: 800px;
     padding: 2rem;
-    margin: 0 auto;
+    margin: 100px auto 0 auto; /* <-- deze margin-top van 100px toevoegen */
     text-align: center;
     transition: transform 0.3s ease;
     color: white;
     text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.7);
   }
+  
   
   /* Aangepaste overlay voor betere zichtbaarheid van de tekst */
   #hoofd::before {
