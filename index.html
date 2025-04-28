@@ -10,17 +10,31 @@
 
   <nav>
     <div class="navbar-container">
-      <a href="#" class="logo">OnlineLaptopGids</a>
-      <ul class="nav-links">
+      <div class="left-container">
+        <!-- Hamburger menu links -->
+        <div class="menu-toggle" id="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+  
+        <!-- Jouw logo -->
+        <a href="#" class="logo">OnlineLaptopGids</a>
+      </div>
+  
+      <!-- Jouw navigatielinks -->
+      <ul class="nav-links" id="nav-links">
         <li><a href="#intro">Home</a></li>
         <li><a href="#laptops">Laptops</a></li>
         <li><a href="#features">Componenten</a></li>
         <li><a href="#tips">Tips</a></li>
         <li><a href="test.html">Doe de test</a></li>
-        <li><a href="email.html">Contact</a></li>        </li>
+        <li><a href="email.html">Contact</a></li>
       </ul>
     </div>
   </nav>
+  
+  
 
   <div id="hoofd" class="intro-section">
     <img src="foto/Computerwp.jpg" alt="Header" class="bg-image" />
@@ -153,6 +167,15 @@
         ticking = true;
       }
     });
+    
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+
   </script>
 
 </body>
