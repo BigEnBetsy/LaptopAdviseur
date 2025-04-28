@@ -129,12 +129,32 @@
     <section id="contact" class="section contact">
       <h2>Hulp Nodig bij het Kiezen van de Juiste Laptop?</h2>
       <p>Heb je specifieke vragen of hulp nodig bij het kiezen van de perfecte laptop? Ons team van experts staat klaar om je te helpen. Neem contact op en we geven je persoonlijk advies op maat.</p>
-      <a href="email.html" class="cta-button">Neem contact op</a>    </section>
+      <a href="email.html" class="cta-button">Neem contact op</a>
+    </section>
   </main>
 
   <footer>
     <p>&copy; 2025 OnlineLaptopGids.nl | <a href="#">Privacybeleid</a> | <a href="#">Disclaimer</a></p>
   </footer>
+
+  <!-- Cookie banner -->
+  <div id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; right: 20px; background: #004d80; color: white; padding: 1rem; border-radius: 10px; text-align: center; z-index: 9999;">
+    Deze website gebruikt cookies om je ervaring te verbeteren. 
+    <button onclick="acceptCookies()" style="margin-left: 1rem; padding: 0.5rem 1rem; background: #ffcc00; border: none; border-radius: 5px; cursor: pointer;">Accepteren</button>
+  </div>
+
+  <script>
+    function acceptCookies() {
+      document.getElementById('cookie-banner').style.display = 'none';
+      localStorage.setItem('cookiesAccepted', 'true');
+    }
+
+    window.onload = function() {
+      if (localStorage.getItem('cookiesAccepted')) {
+        document.getElementById('cookie-banner').style.display = 'none';
+      }
+    };
+  </script>
 
   <script>
     let ticking = false;
@@ -163,23 +183,20 @@
       }
     });
   
-    // Hamburger menu gedrag
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
-    const navLinkItems = document.querySelectorAll('.nav-links li a'); // <-- selecteer alle linkjes binnen de navigatie
-  
+    const navLinkItems = document.querySelectorAll('.nav-links li a');
+
     menuToggle.addEventListener('click', () => {
       navLinks.classList.toggle('active');
     });
-  
-    // Zorg dat het menu automatisch sluit als je op een link klikt
+
     navLinkItems.forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('active');
       });
     });
   </script>
-  
 
 </body>
 </html>
