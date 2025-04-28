@@ -46,6 +46,17 @@ nav {
   font-weight: bold;
 }
 
+/* Hamburger standaard verbergen */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Links in de navbar */
 .nav-links {
   list-style: none;
   display: flex;
@@ -66,7 +77,7 @@ nav {
   background: #003d66;
 }
 
-/* Header met smooth parallax effect */
+/* Header met parallax effect */
 #hoofd {
   position: relative;
   height: 60vh;
@@ -86,7 +97,7 @@ nav {
   will-change: transform;
 }
 
-/* Versterkte leesbaarheid van de header-tekst */
+/* Header tekst */
 .header-content {
   position: relative;
   z-index: 2;
@@ -102,7 +113,7 @@ nav {
   font-size: 3rem;
   font-weight: 800;
   color: #ffffff;
-  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7); /* Zachte zwarte schaduw */
+  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7);
 }
 
 .header-content p {
@@ -112,25 +123,22 @@ nav {
   text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.6);
 }
 
-
-
-/* Aangepaste overlay voor betere zichtbaarheid van de tekst */
+/* Overlay over afbeelding */
 #hoofd::before {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.5) 0%,    /* Boven: donkerder */
-    rgba(0, 77, 128, var(--overlay-opacity)) 80%, /* Midden: zoals je nu hebt */
-    rgba(0, 77, 128, var(--overlay-opacity)) 100% /* Onder: hetzelfde */
+    rgba(0, 0, 0, 0.5) 0%, 
+    rgba(0, 77, 128, var(--overlay-opacity)) 80%, 
+    rgba(0, 77, 128, var(--overlay-opacity)) 100%
   );
   z-index: 1;
   pointer-events: none;
 }
 
-
-/* Knop met zwarte schaduw */
+/* Call-to-action knop */
 .cta-button {
   display: inline-block;
   background: #ffcc00;
@@ -147,7 +155,7 @@ nav {
   background: #e6b800;
 }
 
-/* Inhoud onder header */
+/* Main content */
 .main-content {
   position: relative;
   z-index: 10;
@@ -201,19 +209,64 @@ footer a {
   color: #ffcc00;
 }
 
-/* Responsive */
+/* Mobiele stijl */
 @media (max-width: 768px) {
   .navbar-container {
-    flex-direction: column;
-    padding: 1rem;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 1rem;
+    position: relative;
   }
 
+  /* Hamburger zichtbaar */
+  .hamburger {
+    display: block;
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 200;
+  }
+
+  /* Navigatie */
   .nav-links {
-    margin-top: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #004d80;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    padding-bottom: 1rem;
   }
 
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 90%;
+    text-align: center;
+    margin: 0.5rem 0;
+  }
+
+  .nav-links li a {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: #0066aa;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+
+  .nav-links li a:hover {
+    background: #005288;
+  }
+
+  /* Header content aanpassen */
   .header-content {
     padding: 1rem;
   }
@@ -222,53 +275,3 @@ footer a {
     margin-top: -40px;
   }
 }
-
-/* Zorg dat hamburger en logo samen links staan */
-.left-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* Hamburger menu standaard verbergen */
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.menu-toggle span {
-  height: 3px;
-  width: 25px;
-  background: white;
-  margin: 4px 0;
-  border-radius: 2px;
-}
-
-/* NAVBAR responsive gedrag */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: flex;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background: #004d80;
-    position: absolute;
-    top: 70px;
-    left: 0;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .nav-links li {
-    text-align: center;
-    margin: 1rem 0;
-  }
-}
-
-
