@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="zoek.css" />
+  <title>Zoek Laptops</title>
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>Website In Onderhoud</h1>
+    <p>We proberen het zo snel mogelijk op te lossen</p>
+    <!-- Hier voeg ik de afbeelding toe -->
+    <img src="foto/websiteonderhoud.jpg" alt="Website in onderhoud" style="max-width: 90%; height: auto; margin-top: 20px;">
+  </header>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; <span id="current-year"></span> LaptopAdviseur.nl — Alle rechten voorbehouden</p>
+      <div class="footer-links">
+        <a href="#">Privacybeleid</a> | <a href="#">Algemene voorwaarden</a> | <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Zorg dat het jaar automatisch updatet
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
