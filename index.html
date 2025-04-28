@@ -10,22 +10,18 @@
 
   <nav>
     <div class="navbar-container">
-      <div class="left-container">
-        <!-- Hamburger menu links -->
-        <div class="menu-toggle" id="menu-toggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+      <a href="#" class="logo">OnlineLaptopGids</a>
   
-        <!-- Jouw logo -->
-        <a href="#" class="logo">OnlineLaptopGids</a>
+      <!-- Hier voeg je het hamburgermenu toe -->
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
   
-      <!-- Jouw navigatielinks -->
       <ul class="nav-links" id="nav-links">
-        <li><a href=".">Home</a></li>
-        <li><a href="#hoofd">Laptops</a></li>
+        <li><a href="#hoofd">Home</a></li>
+        <li><a href="#laptops">Laptops</a></li>
         <li><a href="#features">Componenten</a></li>
         <li><a href="#tips">Tips</a></li>
         <li><a href="test.html">Doe de test</a></li>
@@ -33,7 +29,6 @@
       </ul>
     </div>
   </nav>
-  
   
 
   <div id="hoofd" class="intro-section">
@@ -143,40 +138,48 @@
 
   <script>
     let ticking = false;
-
+  
     function updateParallax() {
       const content = document.querySelector('.header-content');
       const bg = document.querySelector('.bg-image');
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
-
+  
       const ratio = Math.min(scrollY / windowHeight, 1);
       const scale = 1 + ratio * 0.1;
       const overlayOpacity = 0.4 + ratio * 0.4;
-
+  
       bg.style.transform = `scale(${scale})`;
       content.style.transform = `translateY(${ratio * 20}px)`;
       document.documentElement.style.setProperty('--overlay-opacity', overlayOpacity.toFixed(2));
-
+  
       ticking = false;
     }
-
+  
     window.addEventListener('scroll', () => {
       if (!ticking) {
         requestAnimationFrame(updateParallax);
         ticking = true;
       }
     });
-    
-  const menuToggle = document.getElementById('menu-toggle');
-  const navLinks = document.getElementById('nav-links');
-
-  menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
-
-
+  
+    // Hamburger menu gedrag
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    const navLinkItems = document.querySelectorAll('.nav-links li a'); // <-- selecteer alle linkjes binnen de navigatie
+  
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  
+    // Zorg dat het menu automatisch sluit als je op een link klikt
+    navLinkItems.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
   </script>
+  
 
 </body>
 </html>
