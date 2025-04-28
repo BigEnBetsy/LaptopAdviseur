@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="zoek.css" />
+  <title>Zoek Laptops</title>
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>Zoek Laptops</h1>
+    <p>Vul je voorkeuren in en bekijk bijpassende laptops</p>
+  </header>
+
+  <div class="container">
+    <form id="laptop-form">
+      <label for="processor">Processor:</label>
+      <input type="text" id="processor" required placeholder="Bijv. Intel i5, Ryzen 7">
+
+      <label for="ram">RAM (GB):</label>
+      <input type="number" id="ram" required placeholder="Bijv. 8, 16">
+
+      <label for="storage">Opslag (GB):</label>
+      <input type="number" id="storage" required placeholder="Bijv. 256, 512, 1000">
+
+      <label for="price">Maximale Prijs (€):</label>
+      <input type="number" id="price" required placeholder="Bijv. 1000">
+
+      <button type="submit" id="search-button">Zoek</button>
+    </form>
+
+    <div id="laptop-results" class="hidden">
+      <h2>Gevonden Laptops</h2>
+      <ul id="laptop-list"></ul>
+    </div>
+  </div>
+
+  <script>
+    // Haal de waarden op uit localStorage
+    window.onload = () => {
+      const study = localStorage.getItem('study');
+      const budget = localStorage.getItem('budget');
+      const mobility = localStorage.getItem('mobility');
+      const software = localStorage.getItem('software');
+      const priority = localStorage.getItem('priority');
+
+      // Vul de formuliervelden in met de opgeslagen data
+      if (study && budget && mobility && software && priority) {
+        // Vul processor, RAM, opslag en prijs in op basis van de opgeslagen voorkeuren
+        document.getElementById('processor').value = "Intel i5 / Ryzen 5";  // Dit kan verder worden uitgebreid als je andere processorkeuzes wilt ondersteunen
+        document.getElementById('ram').value = 16;  // Voorbeeldwaarde, pas deze aan op basis van de opgeslagen gegevens
+        document.getElementById('storage').value = 512;  // Voorbeeldwaarde, pas aan op basis van de voorkeuren
+        // Vul prijs in afhankelijk van het budget
+        document.getElementById('price').value = budget === "Tot €600" ? 600 : budget === "€600 - €1000" ? 1000 : 1500; 
+      }
+    };
+
+    // Zoekfunctie: wanneer het formulier wordt verzonden
+    document.getElementById('laptop-form').onsubmit = function(event) {
+      event.preventDefault();
+      
+      const processor = document.getElementById('processor').value;
+      const ram = document.getElementById('ram').value;
+      const storage = document.getElementById('storage').value;
+      const price = document.getElementById('price').value;
+
+      // Encodeer de zoektermen om ervoor te zorgen dat de URL correct wordt gegenereerd
+      const searchTerm = encodeURIComponent(`${processor} ${ram}GB RAM ${storage}GB opslag laptop`);
+
+      // Pas de zoek URL aan met de juiste prijs en zoektermen
+      const searchUrl = `https://www.bol.com/nl/nl/l/laptops/4770/?searchtext=${searchTerm}&price=${price}`;
+
+      // Redirect naar Bol.com met de zoektermen
+      window.location.href = searchUrl;
+    };
+  </script>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; <span id="current-year"></span> LaptopAdviseur.nl — Alle rechten voorbehouden</p>
+      <div class="footer-links">
+        <a href="#">Privacybeleid</a> | <a href="#">Algemene voorwaarden</a> | <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

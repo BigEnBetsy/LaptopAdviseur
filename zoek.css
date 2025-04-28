@@ -1,0 +1,163 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #333;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  background-color: #007acc;
+  color: white;
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 600px;
+}
+
+form label {
+  text-align: left;
+  display: block;
+  margin-top: 1rem;
+}
+
+form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  margin-top: 1.5rem;
+  padding: 1rem 2rem;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #005f99;
+}
+
+#laptop-results {
+  margin-top: 2rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 1rem;
+  background: #f1f1f1;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: left;
+}
+
+li a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+li a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Header stijl */
+.site-header {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1s ease-in-out;
+}
+
+.site-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.site-header p {
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Footer stijl */
+.site-footer {
+  background-color: #1e3c72;
+  color: white;
+  padding: 3rem 2rem;  /* Ruimte boven en onder in de footer */
+  width: 100%;  /* Maak de footer 100% breed */
+  position: relative;  /* Zorg ervoor dat de footer zich over het volledige scherm uitstrekt */
+  text-align: center;  /* De inhoud blijft gecentreerd */
+  border-top: 4px solid #2a5298;
+  margin-top: auto;
+}
+
+.site-footer p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;  /* Centraal uitlijnen van de footer-links */
+}
+
+.footer-links a {
+  color: #e0e0e0;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 1rem;  /* Grotere tekst voor de links */
+}
+
+.footer-links a:hover {
+  color: #ffd700;
+}
+
+/* Dynamische animatie voor de header */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,270 @@
+/* Algemene opmaak */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;          /* Flexbox instellen voor body */
+  flex-direction: column; /* Zorg ervoor dat elementen van boven naar beneden worden weergegeven */
+  min-height: 100vh;      /* Zorg ervoor dat de hoogte minimaal de volledige hoogte van het scherm is */
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header stijl */
+.site-header {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1s ease-in-out;
+}
+
+.site-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.site-header p {
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Footer stijl */
+.site-footer {
+  background-color: #1e3c72;
+  color: white;
+  text-align: center;
+  padding: 2rem 0;
+  border-top: 4px solid #2a5298;
+  margin-top: auto;   /* Dit zorgt ervoor dat de footer altijd onderaan wordt geplaatst */
+}
+
+.site-footer p {
+  font-size: 1rem;
+}
+
+.footer-links {
+  margin-top: 1rem;
+}
+
+.footer-links a {
+  color: #e0e0e0;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+.footer-links a:hover {
+  color: #ffd700;
+}
+
+/* Dynamische animatie voor de header */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Quiz container stijlen */
+#quiz-container, #result-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  width: 100%; /* Zorg ervoor dat het flexibel blijft maar een maximum breedte heeft */
+  box-sizing: border-box; /* Zorg ervoor dat padding wordt meegerekend bij de breedte */
+}
+
+/* Quiz vraag en antwoordknoppen */
+#question-title {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  color: #007acc;
+}
+
+#answer-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.answer-btn {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.answer-btn:hover {
+  background-color: #005f99;
+  transform: translateX(5px);
+}
+
+/* Resultaat container */
+#result-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden; /* Zorgt ervoor dat alles netjes binnen het container blijft */
+}
+
+#result-container:hover {
+  transform: translateY(-10px); /* Maak het een beetje dynamisch door het omhoog te laten bewegen */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1); /* Versterk de schaduw voor een meer "lift" effect */
+}
+
+#result-container h2 {
+  font-size: 2em;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+#laptop-specs {
+  list-style: none;
+  padding: 0;
+  font-size: 1.2em;
+  color: #34495e;
+}
+
+#laptop-specs li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 30px; /* Ruimte voor het opsommingsteken */
+}
+
+#laptop-specs li::before {
+  content: "🔹";
+  position: absolute;
+  left: 0; /* Zorgt ervoor dat het opsommingsteken aan de linkerkant begint */
+  top: 50%; /* Zet het opsommingsteken in het midden van de tekst */
+  transform: translateY(-50%); /* Dit zorgt ervoor dat het opsommingsteken precies in het midden van de tekst staat */
+  font-size: 1.2em; /* Verkleint het opsommingsteken */
+  color: #27ae60; /* Groene kleur */
+}
+
+
+#laptop-specs li:last-child {
+  margin-bottom: 0;
+}
+
+#result-container p {
+  font-size: 1.1em;
+  color: #7f8c8d;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.restart-btn, .search-laptop-btn {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 25px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.restart-btn:hover, .search-laptop-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-3px);
+}
+
+.restart-btn:active, .search-laptop-btn:active {
+  transform: translateY(1px); /* Kleinere "druk" effect voor de knoppen */
+}
+
+.search-laptop-btn {
+  background-color: #2ecc71;
+}
+
+.search-laptop-btn:hover {
+  background-color: #27ae60;
+}
+
+/* Verborgen elementen */
+.hidden {
+  display: none;
+}
+
+/* Restart knop */
+.restart-btn {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #007acc;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.restart-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* Progress bar */
+.progress-bar {
+  height: 5px;
+  background: #e0e0e0;
+  margin-bottom: 2rem;
+  border-radius: 5px;
+}
+
+.progress {
+  height: 100%;
+  background: #007acc;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+/* Responsieve instellingen */
+@media (max-width: 768px) {
+  .site-header h1 {
+    font-size: 2rem;
+  }
+
+  .site-header p {
+    font-size: 1rem;
+  }
+
+  .footer-links {
+    display: block;
+    margin-top: 1rem;
+  }
+
+  .footer-links a {
+    display: block;
+    margin: 5px 0;
+  }
+}

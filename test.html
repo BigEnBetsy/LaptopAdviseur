@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="test.css" />
+  <title>Welke Laptop Past Bij Jou?</title>
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <h1>Welke laptop past het beste bij jou?</h1>
+      <p>Beantwoord een paar vragen en ontdek de perfecte laptop!</p>
+    </div>
+  </header>
+
+  <div id="quiz-container">
+    <div class="progress-bar">
+      <div class="progress" id="progress-bar"></div>
+    </div>
+    <div id="question-container">
+      <h2 id="question-title">Vraag verschijnt hier</h2>
+      <div id="answer-buttons"></div>
+    </div>
+  </div>
+
+  <div id="result-container" class="hidden">
+    <h2>Jouw perfecte laptop match!</h2>
+    <p id="recommended-laptop"></p>
+    <ul id="laptop-specs"></ul>
+    <p id="laptop-reason"></p>
+    <p id="extra-tips"></p>
+    <button class="restart-btn" onclick="resetQuiz()">Doe de test opnieuw</button>
+    <button class="restart-btn" id="search-laptop-btn">Bekijk laptops die bij mij passen</button>
+  </div>
+
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; <span id="current-year"></span> LaptopAdviseur.nl — Alle rechten voorbehouden</p>
+      <div class="footer-links">
+        <a href="#">Privacybeleid</a> | <a href="#">Algemene voorwaarden</a> | <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentQuestion = 0;
+    let answers = {};
+    let questionFlow = [];
+    let totalQuestions = 1; // Begint met 1 voor de hoofd vraag
+    
+    // Definieer alle mogelijke vragen
+    const allQuestions = {
+      mainQuestion: {
+        question: "Waar ga je de laptop vooral voor gebruiken?",
+        options: ["Voor school/studie", "Gaming", "Creatief werk", "Algemeen gebruik", "Voor werk"]
+      },
+      schoolQuestions: [
+        {
+          question: "Wat is je opleidingsrichting?",
+          options: ["Informatica/Techniek", "Design/Kunst", "Economie/Bedrijfskunde", "Geneeskunde", "Rechten", "Sociale studies", "Andere"]
+        },
+        {
+          question: "Wat is je maximale budget?",
+          options: ["Tot €600", "€600 - €1000", "€1000 - €1500", "Meer dan €1500"]
+        },
+        {
+          question: "Hoe belangrijk is draagbaarheid?",
+          options: ["Zeer belangrijk (neem hem elke dag mee)", "Redelijk belangrijk", "Niet belangrijk (blijft meestal thuis)"]
+        },
+        {
+          question: "Welke software gebruik je het meest?",
+          options: ["Office en browser", "Programmeertools (IDE's, etc.)", "Creatieve software (Adobe, etc.)", "Wetenschappelijke tools"]
+        }
+      ],
+      gamingQuestions: [
+        {
+          question: "Welke games speel je het meest?",
+          options: ["Competitieve esports (CS:GO, LoL, Valorant)", "AAA-titels (Cyberpunk, RDR2, etc.)", "Indie games", "Allerlei soorten"]
+        },
+        {
+          question: "Wat is je budget voor een gaming laptop?",
+          options: ["Tot €1000", "€1000 - €1500", "€1500 - €2000", "Meer dan €2000"]
+        },
+        {
+          question: "Speel je vooral thuis of neem je de laptop mee?",
+          options: ["Vooral thuis", "Neem hem vaak mee", "50/50"]
+        },
+        {
+          question: "Wat is het belangrijkste voor jou?",
+          options: ["Hoge FPS voor competitief spelen", "Mooie graphics voor singleplayer", "Balans tussen prestaties en prijs"]
+        }
+      ],
+      creativeQuestions: [
+        {
+          question: "Welk creatief werk doe je?",
+          options: ["Foto/video bewerking", "3D modelleren/animatie", "Graphic design", "Muziekproductie"]
+        },
+        {
+          question: "Wat is je budget?",
+          options: ["Tot €1000", "€1000 - €1500", "€1500 - €2000", "Meer dan €2000"]
+        },
+        {
+          question: "Hoe belangrijk is kleurnauwkeurigheid?",
+          options: ["Zeer belangrijk (professioneel werk)", "Redelijk belangrijk", "Niet cruciaal"]
+        },
+        {
+          question: "Gebruik je zware software zoals After Effects of Blender?",
+          options: ["Ja, regelmatig", "Soms", "Nee, vooral lichtere apps"]
+        }
+      ],
+      generalQuestions: [
+        {
+          question: "Wat is je maximale budget?",
+          options: ["Tot €500", "€500 - €800", "€800 - €1200", "Meer dan €1200"]
+        },
+        {
+          question: "Hoe belangrijk is batterijduur?",
+          options: ["Zeer belangrijk", "Redelijk belangrijk", "Niet belangrijk (gebruik hem vooral aan stopcontact)"]
+        },
+        {
+          question: "Wat is je belangrijkste prioriteit?",
+          options: ["Betrouwbaarheid", "Snelheid", "Prijs/kwaliteit verhouding", "Levensduur"]
+        },
+        {
+          question: "Welk schermformaat prefereer je?",
+          options: ["Klein en licht (13-14 inch)", "Middel (15 inch)", "Groot (17 inch of groter)"]
+        }
+      ],
+      workQuestions: [
+        {
+          question: "In welke sector werk je?",
+          options: ["IT/Techniek", "Design/Marketing", "Financiën/Administratie", "Zorg/Education", "Andere"]
+        },
+        {
+          question: "Wat is je werkbudget of vergoeding?",
+          options: ["Zelf betalen (max €1000)", "Zelf betalen (onbeperkt)", "Werkgever vergoedt (budget bekend)", "Werkgever kiest"]
+        },
+        {
+          question: "Moet je vaak presenteren of klanten bezoeken?",
+          options: ["Ja, professionele uitstraling belangrijk", "Nee, vooral intern gebruik"]
+        },
+        {
+          question: "Welke bedrijfssoftware gebruik je?",
+          options: ["Office 365/Google Workspace", "Specifieke bedrijfssoftware", "Virtualisatie/remote tools", "Geen speciale software"]
+        }
+      ]
+    };
+
+    function updateProgressBar() {
+      const progress = (currentQuestion / totalQuestions) * 100;
+      document.getElementById('progress-bar').style.width = `${progress}%`;
+    }
+
+    function nextQuestion(value) {
+      if (currentQuestion === 0) {
+        // Hoofdvraag - bepaal welke vragen volgen
+        answers.mainPurpose = value;
+        
+        if (value === "Voor school/studie") {
+          questionFlow = [...allQuestions.schoolQuestions];
+        } else if (value === "Gaming") {
+          questionFlow = [...allQuestions.gamingQuestions];
+        } else if (value === "Creatief werk") {
+          questionFlow = [...allQuestions.creativeQuestions];
+        } else if (value === "Algemeen gebruik") {
+          questionFlow = [...allQuestions.generalQuestions];
+        } else if (value === "Voor werk") {
+          questionFlow = [...allQuestions.workQuestions];
+        }
+        
+        totalQuestions = 1 + questionFlow.length; // Hoofdvraag + vervolgvragen
+      } else {
+        // Sla antwoorden op voor vervolgvragen
+        answers[`q${currentQuestion-1}`] = value;
+      }
+      
+      currentQuestion++;
+      updateProgressBar();
+      
+      if (currentQuestion <= questionFlow.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showQuestion() {
+      let q;
+      if (currentQuestion === 0) {
+        q = allQuestions.mainQuestion;
+      } else {
+        q = questionFlow[currentQuestion-1];
+      }
+      
+      document.getElementById("question-title").textContent = q.question;
+      const container = document.getElementById("answer-buttons");
+      container.innerHTML = "";
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "answer-btn";
+        btn.textContent = option;
+        btn.onclick = () => nextQuestion(option);
+        container.appendChild(btn);
+      });
+    }
+
+    function showResult() {
+      const mainPurpose = answers.mainPurpose;
+      
+      let recommendation = "";
+      let specs = "";
+      let reason = "";
+      let tips = "";
+      
+      if (mainPurpose === "Voor school/studie") {
+        const study = answers.q0;
+        const budget = answers.q1;
+        const mobility = answers.q2;
+        
+        recommendation = `Ideale studielaptop voor ${study} (${budget})`;
+        specs = `
+          <li>Processor: ${budget.includes("1500") ? "Intel i7/Ryzen 7" : "Intel i5/Ryzen 5"}</li>
+          <li>RAM: ${study.includes("Informatica") || study.includes("Design") ? "16GB (32GB aanbevolen)" : "8GB (16GB aanbevolen)"}</li>
+          <li>Opslag: 512GB SSD ${study.includes("Design") ? "+ externe harde schijf" : ""}</li>
+          <li>Scherm: ${study.includes("Design") ? "IPS met 100% sRGB" : "Full HD IPS"}</li>
+          ${mobility.includes("Zeer") ? "<li>Gewicht: Minder dan 1,5kg</li>" : ""}
+        `;
+        reason = `Deze specificaties zijn optimaal voor ${study}, met aandacht voor ${mobility.toLowerCase()}.`;
+        tips = "Overweeg een goede rugtas en eventueel een tweede oplader voor op school.";
+
+      } else if (mainPurpose === "Gaming") {
+        const games = answers.q0;
+        const budget = answers.q1;
+        const usage = answers.q2;
+        const priority = answers.q3;
+        
+        recommendation = `Gaming laptop voor ${games} (${budget})`;
+        specs = `
+          <li>GPU: ${budget.includes("2000") ? "RTX 4070 of beter" : budget.includes("1500") ? "RTX 3060/3070" : "RTX 3050"}</li>
+          <li>Processor: Intel i7/Ryzen 7</li>
+          <li>RAM: 16GB ${games.includes("AAA") ? "(32GB aanbevolen)" : ""}</li>
+          <li>Scherm: ${priority.includes("FPS") ? "144Hz+" : "120Hz+"} ${usage.includes("mee") ? "met G-Sync/FreeSync" : ""}</li>
+          ${usage.includes("thuis") ? "<li>Goede koeling belangrijk</li>" : "<li>Gewicht onder 2,5kg voor portabiliteit</li>"}
+        `;
+        reason = `Optimaliseerd voor ${games.toLowerCase()} met focus op ${priority.toLowerCase()}.`;
+        tips = "Investeer in een gaming muis en overweeg een mechanisch toetsenbord voor de beste ervaring.";
+
+      } else if (mainPurpose === "Creatief werk") {
+        const workType = answers.q0;
+        const budget = answers.q1;
+        const colorAccuracy = answers.q2;
+        const heavySoftware = answers.q3;
+        
+        recommendation = `Creatieve laptop voor ${workType} (${budget})`;
+        specs = `
+          <li>${workType.includes("3D") ? "GPU: RTX 3060 of beter" : "GPU: RTX 3050 of dedicated GPU"}</li>
+          <li>Processor: ${heavySoftware.includes("Ja") ? "Intel i7/Ryzen 7 of beter" : "Intel i5/Ryzen 5"}</li>
+          <li>RAM: ${heavySoftware.includes("Ja") ? "32GB" : "16GB"}</li>
+          <li>Scherm: ${colorAccuracy.includes("Zeer") ? "4K OLED of IPS met 100% AdobeRGB" : "Full HD IPS"}</li>
+          <li>Opslag: 1TB SSD ${heavySoftware.includes("Ja") ? "+ externe opslag" : ""}</li>
+        `;
+        reason = `Afgestemd op ${workType.toLowerCase()} met ${colorAccuracy.includes("Zeer") ? "professionele kleurnauwkeurigheid" : "goede prestaties"}.`;
+        tips = "Overweeg een calibratie tool voor je scherm als kleurnauwkeurigheid belangrijk is.";
+
+      } else if (mainPurpose === "Algemeen gebruik") {
+        const budget = answers.q0;
+        const battery = answers.q1;
+        const priority = answers.q2;
+        const size = answers.q3;
+        
+        recommendation = `Allround laptop (${budget})`;
+        specs = `
+          <li>Processor: ${budget.includes("1200") ? "Intel i5/Ryzen 5" : "Intel i3/Ryzen 3"}</li>
+          <li>RAM: 8GB ${budget.includes("800") ? "(16GB optioneel)" : ""}</li>
+          <li>Opslag: ${budget.includes("500") ? "256GB SSD" : "512GB SSD"}</li>
+          <li>Scherm: ${size.includes("Klein") ? "13-14 inch" : size.includes("Middel") ? "15 inch" : "17 inch"} Full HD</li>
+          ${battery.includes("Zeer") ? "<li>Batterij: 10+ uur</li>" : ""}
+        `;
+        reason = `Een ${priority.toLowerCase()} laptop die voldoet aan dagelijkse behoeften.`;
+        tips = "Kijk naar refurbished opties voor meer waar voor je geld bij een kleiner budget.";
+
+      } else if (mainPurpose === "Voor werk") {
+        const sector = answers.q0;
+        const budget = answers.q1;
+        const presentation = answers.q2;
+        const software = answers.q3;
+        
+        recommendation = `Professionele laptop voor ${sector} (${budget})`;
+        specs = `
+          <li>Processor: ${sector.includes("IT") || sector.includes("Design") ? "Intel i7/Ryzen 7" : "Intel i5/Ryzen 5"}</li>
+          <li>RAM: ${sector.includes("IT") ? "16GB (32GB voor developers)" : "16GB"}</li>
+          <li>Opslag: 512GB SSD ${software.includes("Virtualisatie") ? "+ extra opslag" : ""}</li>
+          <li>Scherm: ${presentation.includes("Ja") ? "14-15 inch premium design" : "15-17 inch praktisch"}</li>
+          <li>${presentation.includes("Ja") ? "Premium build kwaliteit" : "Robuuste build"}</li>
+        `;
+        reason = `Afgestemd op ${sector.toLowerCase()} met aandacht voor ${presentation.includes("Ja") ? "professionele presentatie" : "productiviteit"}.`;
+        tips = "Check bij je werkgever naar mogelijke kortingen via bedrijfscontracten.";
+      }
+
+      document.getElementById("recommended-laptop").textContent = recommendation;
+      document.getElementById("laptop-specs").innerHTML = specs;
+      document.getElementById("laptop-reason").textContent = reason;
+      document.getElementById("extra-tips").textContent = tips;
+
+      document.getElementById("quiz-container").classList.add("hidden");
+      document.getElementById("result-container").classList.remove("hidden");
+
+      const searchBtn = document.getElementById("search-laptop-btn");
+      searchBtn.onclick = () => {
+        // Hier kun je parameters meegeven voor filtering
+        const params = new URLSearchParams();
+        params.set('purpose', mainPurpose);
+        window.location.href = "onderhoud.html?" + params.toString();
+      };
+    }
+
+    function resetQuiz() {
+      currentQuestion = 0;
+      answers = {};
+      questionFlow = [];
+      totalQuestions = 1;
+      document.getElementById("quiz-container").classList.remove("hidden");
+      document.getElementById("result-container").classList.add("hidden");
+      showQuestion();
+      updateProgressBar();
+    }
+
+    window.onload = () => {
+      showQuestion();
+      updateProgressBar();
+    }
+    
+   
+  </script>
+</body>
+</html>
+
+
+
+
+

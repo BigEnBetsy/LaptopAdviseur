@@ -1,0 +1,203 @@
+:root {
+  --overlay-opacity: 0.4;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+  padding-top: 60px;
+  min-height: 1080px;
+}
+
+h1, h2, h3 {
+  color: #004d80;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Navbar */
+nav {
+  background: #004d80;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s;
+  border-radius: 6px;
+}
+
+.nav-links li a:hover {
+  background: #003d66;
+}
+
+/* Header met smooth parallax effect */
+#hoofd {
+  position: relative;
+  height: 60vh;
+  overflow: hidden;
+}
+
+#hoofd img.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Versterkte leesbaarheid van de header-tekst */
+.header-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem;
+  margin: 0 auto;
+  text-align: center;
+  transition: transform 0.3s ease;
+  color: white;
+  text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.7);
+}
+
+/* Aangepaste overlay voor betere zichtbaarheid van de tekst */
+#hoofd::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 77, 128, var(--overlay-opacity));
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Knop met zwarte schaduw */
+.cta-button {
+  display: inline-block;
+  background: #ffcc00;
+  color: #004d80;
+  padding: 0.75rem 2rem;
+  font-weight: bold;
+  border-radius: 6px;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cta-button:hover {
+  background: #e6b800;
+}
+
+/* Inhoud onder header */
+.main-content {
+  position: relative;
+  z-index: 10;
+  background: white;
+  margin-top: -100px;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+}
+
+/* Secties */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.section.alt {
+  background: #eef6fb;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  background: #004d80;
+  color: white;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+footer a {
+  color: #ffcc00;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .header-content {
+    padding: 1rem;
+  }
+
+  .main-content {
+    margin-top: -40px;
+  }
+}
