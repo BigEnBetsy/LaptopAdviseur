@@ -96,18 +96,39 @@ nav {
   text-align: center;
   transition: transform 0.3s ease;
   color: white;
-  text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.7);
 }
+
+.header-content h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.7); /* Zachte zwarte schaduw */
+}
+
+.header-content p {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  color: #f0f0f0;
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+
 
 /* Aangepaste overlay voor betere zichtbaarheid van de tekst */
 #hoofd::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 77, 128, var(--overlay-opacity));
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5) 0%,    /* Boven: donkerder */
+    rgba(0, 77, 128, var(--overlay-opacity)) 80%, /* Midden: zoals je nu hebt */
+    rgba(0, 77, 128, var(--overlay-opacity)) 100% /* Onder: hetzelfde */
+  );
   z-index: 1;
   pointer-events: none;
 }
+
 
 /* Knop met zwarte schaduw */
 .cta-button {
